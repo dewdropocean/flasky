@@ -19,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Flasky</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">SparkCharm</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -63,7 +63,13 @@
     {% endfor %}
 
     {% block page_content %}{% endblock %}
+    <footer>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2025105778</a></p>
+    </footer>
 </div>
+
+
+
 {% endblock %}
 
 {% block scripts %}
