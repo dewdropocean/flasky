@@ -66,12 +66,12 @@ class ProductionConfig(Config):
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
 
-        # handle reverse proxy server headers
-        try:
-            from werkzeug.middleware.proxy_fix import ProxyFix
-        except ImportError:
-            from werkzeug.contrib.fixers import ProxyFix
-        app.wsgi_app = ProxyFix(app.wsgi_app)
+        # # handle reverse proxy server headers
+        # try:
+        #     from werkzeug.middleware.proxy_fix import ProxyFix
+        # except ImportError:
+        #     from werkzeug.contrib.fixers import ProxyFix
+        # app.wsgi_app = ProxyFix(app.wsgi_app)
 
 class HerokuConfig(ProductionConfig):
     SSL_REDIRECT = True if os.environ.get('DYNO') else False
