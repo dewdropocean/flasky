@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='simditor-2.3.28/css/simditor.css') }}">
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+    <!-- 注意：引入顺序是固定的 -->
+    <!-- Note: The introduction order is fixed -->
+    <script src="{{ url_for('static', filename='simditor-2.3.28/js/module.js') }}"></script>
+    <script src="{{ url_for('static', filename='simditor-2.3.28/js/uploader.js') }}"></script>
+    <script src="{{ url_for('static', filename='simditor-2.3.28/js/hotkeys.js') }}"></script>    
+    <script src="{{ url_for('static', filename='simditor-2.3.28/js/simditor.js') }}"></script>
+    <script src="{{ url_for('static', filename='simditor-2.3.28/js/mobilecheck.js') }}"></script>    
+    
+    <script type="text/javascript">
+        var toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent', 'alignment'];
+        editor = new Simditor({
+            textarea: $('#txt-content'),
+            placeholder: '',
+            toolbar: toolbar,
+            pasteImage: true,
+            toolbarFloat: false,
+            defaultImage: "{{ url_for('static', filename='simditor-2.3.28/images/image.png') }}",
+            upload: location.search === '?upload' ? {
+                url: '/upload'
+            } : false
+        });        
+    </script>
+{% endblock %}

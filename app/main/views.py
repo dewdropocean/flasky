@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from flask_sqlalchemy import get_debug_queries
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm, PostForm,\
-    CommentForm
+    CommentForm, PostSimditorForm
 from .. import db
 from ..models import Permission, Role, User, Post, Comment
 from ..decorators import admin_required, permission_required
@@ -34,9 +34,9 @@ def server_shutdown():
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = PostForm()
-    if current_user.can(Permission.WRITE) and form.validate_on_submit():
-        post = Post(body=form.body.data,
+    simditor_form = PostSimditorForm()
+    if current_user.can(Permission.WRITE) and simditor_form.validate_on_submit():
+        post = Post(body_html=simditor_form.body.data,
                     author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
@@ -53,7 +53,7 @@ def index():
         page=page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
-    return render_template('index.html', form=form, posts=posts,
+    return render_template('index.html', simditor_form=simditor_form, posts=posts,
                            show_followed=show_followed, pagination=pagination)
 
 
@@ -146,15 +146,15 @@ def edit(id):
     if current_user != post.author and \
             not current_user.can(Permission.ADMIN):
         abort(403)
-    form = PostForm()
-    if form.validate_on_submit():
-        post.body = form.body.data
+    simditor_form = PostSimditorForm()
+    if simditor_form.validate_on_submit():
+        post.body_html = simditor_form.body.data
         db.session.add(post)
         db.session.commit()
         flash('The post has been updated.')
         return redirect(url_for('.post', id=post.id))
-    form.body.data = post.body
-    return render_template('edit_post.html', form=form)
+    simditor_form.body.data = post.body_html
+    return render_template('edit_post.html', simditor_form=simditor_form)
 
 
 @main.route('/follow/<username>')
