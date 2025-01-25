@@ -13,7 +13,6 @@
     <script src="{{ url_for('static', filename='simditor-2.3.28/js/hotkeys.js') }}"></script>    
     <script src="{{ url_for('static', filename='simditor-2.3.28/js/simditor.js') }}"></script>
     <script src="{{ url_for('static', filename='simditor-2.3.28/js/mobilecheck.js') }}"></script>    
-    
     <script type="text/javascript">
         var toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent', 'alignment'];
         editor = new Simditor({
@@ -21,7 +20,7 @@
             placeholder: '',
             toolbar: toolbar,
             pasteImage: true,
-            toolbarFloat: false,
+            toolbarFloat: true,
             defaultImage: "{{ url_for('static', filename='simditor-2.3.28/images/image.png') }}",
             upload: location.search === '?upload' ? {
                 url: '/upload'

@@ -119,3 +119,29 @@ body{
 .container{
     flex: 1; /* 内容占满所有剩余空间 */
 }
+
+.user_box {
+    display: flex;
+  }
+
+@media (min-width: 600px){
+    .user_profile_pic {
+      width: 30%;
+    }
+    .user_profile_txt {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1000px) { 
+    .user_box {
+        flex-wrap: wrap;  
+    }
+    .user_profile_pic {
+        width: 100%;
+    }
+    .user_profile_txt {
+          width: 100%;
+    }    
+}
+ 
